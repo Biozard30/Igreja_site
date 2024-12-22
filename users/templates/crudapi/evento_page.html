@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos</title>
+    <link rel="stylesheet" href="{% static '/css/crudapi/styles.css' %}">
+</head>
+<body>
+
+    <h1>Eventos</h1>
+    
+    <div id="eventos-list">
+        {% if eventos %}
+            <ul>
+                {% for evento in eventos %}
+                    <li>
+                        <strong>{{ evento.titulo }}</strong><br>
+                        Data: {{ evento.data }}<br>
+                        Texto: {{ evento.texto }}<br>
+                        <img src="{{ evento.foto.url }}" alt="{{ evento.titulo }}" width="200">
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não há eventos para exibir.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

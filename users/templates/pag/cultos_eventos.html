@@ -1,0 +1,49 @@
+{% extends 'pag/base-users.html' %}
+
+{% block title %}Eventos e Cultos{% endblock %}
+
+{% block content %}
+    <h1>Eventos e Cultos</h1>
+
+    <div>
+        <h2>Adicionar Culto</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ culto_form.as_p }}
+            <button type="submit" name="add_culto">Adicionar Culto</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Adicionar Evento</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ evento_form.as_p }}
+            <button type="submit" name="add_evento">Adicionar Evento</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Cultos</h2>
+        <ul>
+            {% for culto in cultos %}
+                <li>{{ culto.tipo }} - {{ culto.data }} às {{ culto.horario }}
+                    <a href="{% url 'editar_culto' culto.id %}">Editar</a> | 
+                    <a href="{% url 'excluir_culto' culto.id %}">Excluir</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h2>Eventos</h2>
+        <ul>
+            {% for evento in eventos %}
+                <li>{{ evento.titulo }} - {{ evento.data }}
+                    <a href="{% url 'editar_evento' evento.id %}">Editar</a> | 
+                    <a href="{% url 'excluir_evento' evento.id %}">Excluir</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

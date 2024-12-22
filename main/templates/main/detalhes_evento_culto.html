@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Evento ou Culto</title>
+</head>
+<body>
+    <h1>Detalhes para o dia {{ data }}</h1>
+
+    {% if evento %}
+        <h2>Evento: {{ evento.titulo }}</h2>
+        <p>{{ evento.texto }}</p>
+        <p><strong>Data:</strong> {{ evento.data }}</p>
+    {% elif culto %}
+        <h2>Culto: {{ culto.tipo }}</h2>
+        <p>{{ culto.descricao }}</p>
+        <p><strong>Data:</strong> {{ culto.data }} | <strong>Horário:</strong> {{ culto.horario }}</p>
+    {% else %}
+        <p>Nenhum evento ou culto para esse dia.</p>
+    {% endif %}
+
+</body>
+</html>

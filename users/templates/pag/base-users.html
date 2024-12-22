@@ -1,0 +1,88 @@
+<!-- base-users.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Páginas do Usuário{% endblock %}</title>
+    {% load static %}
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/crudapi/styles.css' %}">
+    {% endblock %}
+</head>
+
+
+<body>
+
+<header>
+  <h1>Minha Página</h1>
+  <!-- Botão do menu hambúrguer -->
+  <button class="menu-btn" id="menu-btn">&#9776;</button>
+</header>
+
+<div class="container">
+  <!-- Barra lateral -->
+  <aside class="sidebar" id="sidebar">
+    <button class="close-btn" id="close-btn">&times;</button>
+    <h2>Menu</h2>
+    <ul>
+        {% if user.role == 'membro' %}
+        <li><a href="{% url 'mensagem' %}">Mensagem</a></li>
+        <li><a href="{% url 'feed' %}">Feed</a></li>
+        <li><a href="{% url 'ministerio' %}">Ministério</a></li>
+        <li><a href="{% url 'pedidos' %}">Pedidos</a></li>
+        <li><a href="{% url 'perfil' %}">Perfil</a></li>
+        <li><a href="{% url 'logout' %}">Sair</a></li>
+            
+        {% elif user.role == 'lider' %}
+        <li><a href="{% url 'mensagem' %}">Mensagem</a></li>
+        <li><a href="{% url 'feed' %}">Feed</a></li>
+        <li><a href="{% url 'ministerio' %}">Ministério</a></li>
+        <li><a href="{% url 'pedidos' %}">Pedidos</a></li>
+        <li><a href="{% url 'perfil' %}">Perfil</a></li>
+        <li><a href="{% url 'cultos_eventos' %}">Cultos/Eventos</a></li>
+        <li><a href="{% url 'logout' %}">Sair</a></li>
+
+        {% elif user.role == 'pastor' %}
+        <li><a href="{% url 'mensagem' %}">Mensagem</a></li>
+        <li><a href="{% url 'feed' %}">Feed</a></li>
+        <li><a href="{% url 'ministerio' %}">Ministério</a></li>
+        <li><a href="{% url 'pedidos' %}">Pedidos</a></li>
+        <li><a href="{% url 'perfil' %}">Perfil</a></li>
+        <li><a href="{% url 'cultos_eventos' %}">Cultos/Eventos</a></li>
+        <li><a href="{% url 'lideres' %}">Líderes</a></li>
+        <li><a href="{% url 'logout' %}">Sair</a></li>
+
+        {% elif user.role == 'admin' %}
+        <li><a href="{% url 'mensagem' %}">Mensagem</a></li>
+        <li><a href="{% url 'feed' %}">Feed</a></li>
+        <li><a href="{% url 'ministerio' %}">Ministério</a></li>
+        <li><a href="{% url 'pedidos' %}">Pedidos</a></li>
+        <li><a href="{% url 'perfil' %}">Perfil</a></li>
+        <li><a href="{% url 'cultos_eventos' %}">Cultos/Eventos</a></li>
+        <li><a href="{% url 'lideres' %}">Líderes</a></li>
+        <li><a href="{% url 'pastor' %}">Pastor</a></li>
+        <li><a href="{% url 'editar_site' %}">Editar Site</a></li>
+        <li><a href="{% url 'logout' %}">Sair</a></li>
+        
+        {% endif %}
+    </ul>
+  </aside>
+
+  <!-- Conteúdo principal -->
+  <main>
+    {% block content %}
+    <!-- O conteúdo específico de cada página será inserido aqui -->
+    {% endblock %}
+  </main>
+</div>
+
+<footer>
+    <p>&copy; 2024 Sua Igreja. Todos os direitos reservados.</p>
+</footer>
+{% block js %}
+<script src="{% static 'js/scripts.js' %}"></script>
+{% endblock %}
+</body>
+</html>

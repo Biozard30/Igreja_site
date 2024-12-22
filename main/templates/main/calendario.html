@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário</title>
+    <style>
+        .evento, .culto {
+            background-color: #ffcc00;  /* Altere a cor de fundo conforme necessário */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calendário de Eventos e Cultos - {{ ano }}/{{ mes }}</h1>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Dom</th>
+                <th>Seg</th>
+                <th>Ter</th>
+                <th>Qua</th>
+                <th>Qui</th>
+                <th>Sex</th>
+                <th>Sáb</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for semana in dias_do_mes %}
+                <tr>
+                    {% for dia, _ in semana %}
+                        <td class="{% if dia != 0 %}
+                                    {% with data_string=ano|add:"-"|add:mes|add:"-"|add:dia %}
+                                        {% if data_string in eventos_dates or data_string in cultos_dates %}
+                                            evento
+                                        {% endif %}
+                                    {% endwith %}
+                                    {% endif %}">
+                            {% if dia != 0 %}
+                                {{ dia }}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Eventos e Cultos neste Mês</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evento in eventos %}
+                <tr>
+                    <td>{{ evento.data }}</td>
+                    <td>{{ evento.descricao }}</td>
+                </tr>
+            {% endfor %}
+            {% for culto in cultos %}
+                <tr>
+                    <td>{{ culto.data }}</td>
+                    <td>{{ culto.descricao }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

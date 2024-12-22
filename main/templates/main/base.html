@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Minha Igreja{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+    
+    <header>
+        <div class="interface">
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/logo site.jpeg' %}" alt="" height="70">
+                </a>
+            </div><!--logo-->
+            <nav class="menu-desktop">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'ministerio' %}">Ministerios</a></li>
+                    <li><a href="{% url 'contato' %}">Contatos</a></li>
+                    <li><a href="#">Lista de Dirigentes</a></li>
+                </ul>
+            </nav><!--navegação-->
+            <div class="btn-contato">
+                <a href="{% url 'login' %}">
+                    <button>Login</button>
+                </a>
+            </div>
+            
+        </div><!--interface-->
+    </header><!--cabeçalho-->
+
+    {% block content %}{% endblock %}
+
+    {% block js %}{% endblock %}
+
+    <footer>
+        <p>&copy; 2024 - Igreja New Igreja- Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

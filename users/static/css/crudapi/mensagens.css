@@ -1,0 +1,303 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+  
+  header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+  }
+  
+  .menu-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: none; /* Exibido apenas em telas pequenas */
+  }
+  
+  .container {
+    display: flex;
+  }
+  
+  .sidebar {
+    font-size: 15px;
+    width: 20%; 
+    background-color: #555;
+    color: #fff;
+    padding: 16px;
+    min-height: 100vh;
+    transition: transform 0.3s ease;
+  }
+  
+  .sidebar h2 {
+    margin-bottom: 10px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+  }
+  
+  .sidebar ul li {
+    margin-bottom: 10px;
+  }
+  
+  .sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    background-color: #666;
+    border-radius: 4px;
+  }
+  
+  .sidebar ul li a:hover {
+    background-color: #777;
+  }
+  
+  .close-btn {
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    display: none;
+  }
+  
+  .content {
+    width: 75%;
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  footer {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 0;
+    margin-top: auto;
+  }
+  
+/* Estilos para a seção de mensagens */
+.chat-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Caixa de seleção de usuário */
+.user-select {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.user-select label {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.user-select input {
+    width: 80%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.user-select input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Lista de usuários */
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin: 8px 0;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 80%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-item:hover {
+    background-color: #f1f1f1;
+}
+
+.user-item p {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Caixa de mensagens */
+.chat-box {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #e9ecef;
+    border-radius: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    width: 80%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chat-box h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilos para as mensagens enviadas e recebidas */
+.sent {
+    text-align: right;
+    background-color: #007BFF;
+    color: #fff;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    max-width: 70%;
+    margin-left: auto;
+    font-size: 1rem;
+    word-wrap: break-word;
+}
+
+.received {
+    text-align: left;
+    background-color: #e4e5e6;
+    color: #333;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    max-width: 70%;
+    font-size: 1rem;
+    word-wrap: break-word;
+}
+
+/* Formulário de envio de mensagem */
+form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    width: 80%;
+}
+
+form textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    resize: none;
+    margin-bottom: 15px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+form textarea:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+form button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Barra de rolagem personalizada */
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .chat-container {
+        align-items: flex-start;
+    }
+
+    .user-select input {
+        width: 100%;
+    }
+
+    .user-item {
+        font-size: 0.9rem;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .chat-box {
+        max-height: 300px;
+    }
+
+    .chat-box .sent, .chat-box .received {
+        max-width: 90%;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    form textarea {
+        height: 100px;
+    }
+
+    form button {
+        padding: 10px 15px;
+    }
+}

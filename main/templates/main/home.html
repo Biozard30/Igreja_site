@@ -1,0 +1,100 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Página Inicial{% endblock %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<section class="slider">
+    <div class="slider-content">
+        {% for i in noticias %}
+            <input type="radio" name="btn-radio" id="radio{{ forloop.counter }}" {% if forloop.first %}checked{% endif %}>
+        {% endfor %}
+        
+        {% for noticia in noticias %}
+            <div class="slide-box {% if forloop.first %}primeiro{% endif %}">
+                <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}" class="img-desktop">
+            </div><!--slide-->
+        {% endfor %}
+        
+        <div class="nav-auto">
+            {% for i in noticias %}
+                <div class="auto-btn{{ forloop.counter }}"></div>
+            {% endfor %}
+        </div>
+        
+        <div class="nav-manual">
+            {% for i in noticias %}
+                <label for="radio{{ forloop.counter }}" class="manual-btn"></label>
+            {% endfor %}
+        </div>
+    </div>
+</section><!--sessão slider-->
+
+<section class="avisos">
+    <div class="container">
+        {% if culto_hoje %}
+            <p>{{ culto_hoje.dia_da_semana }}, às {{ culto_hoje.data }}</p>
+            
+            <h1>Hoje, {{ culto_hoje.tipo }} às {{ culto_hoje.horario }} horas</h1>
+            <p>{{ culto_hoje.descricao }}</p>
+        {% elif culto_proximo %}
+            <h4>Próximo culto: {{ culto_proximo.dia_da_semana }}</h4>
+            <p>dia {{ culto_proximo.data }} às {{ culto_proximo.horario }}</p>
+        {% else %}
+            <p>Não há eventos programados para este mês.</p>
+        {% endif %}
+    </div>
+</section><!--Sessão de avisos-->
+
+<section class="sobre">
+    <div class="interface">
+        <div class="flex">
+
+            <div class="img-sobre">
+                <img src="{% static 'images/foto igreja.jpeg' %}" alt="" height="300">
+            </div><!--imagem sobre-->
+
+            <div class="txt-sobre">
+                <h2>Muito Prazer, Somos o Ministério Bereanos</h2>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div class="btn-social">
+                    <img src="{% static 'images/logo insta.jpeg' %}" alt="" height="50">
+                    <img src="{% static 'images/logo whats.jpeg' %}" alt="" height="50">
+                    <img src="{% static 'images/logo youtube.jpeg' %}" alt="" height="50">
+                </div>          
+            </div><!--texto sobre-->
+        </div>
+    </div><!--interface sobre-->
+</section><!--Sessão Sobre-->
+
+<section class="formulario">
+    <h2><span>Faça seu Pedido de Oração</span></h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.nome.id_for_label }}">Nome</label>
+            {{ form.nome }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.telefone.id_for_label }}">Telefone</label>
+            {{ form.telefone }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.texto.id_for_label }}">Texto</label>
+            {{ form.texto }}
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    
+</section><!--sessão formulários-->
+
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ministérios</title>
+    <link rel="stylesheet" href="{% static '/css/crudapi/styles.css' %}">
+</head>
+<body>
+
+    <h1>Ministérios</h1>
+    
+    <div id="ministerios-list">
+        {% if ministerios %}
+            <ul>
+                {% for ministerio in ministerios %}
+                    <li>
+                        <strong>{{ ministerio.nome }}</strong><br>
+                        Descrição: {{ ministerio.descricao }}<br>
+                        <img src="{{ ministerio.foto.url }}" alt="{{ ministerio.nome }}" width="200">
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não há ministérios para exibir.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

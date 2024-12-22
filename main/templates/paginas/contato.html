@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Contatos{% endblock %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="contatos">
+    <div class="interface">
+        <div class="flex">
+
+            <div class="img-contatos">
+                <img src="" alt="" height="300">
+            </div><!--imagem sobre-->
+
+            <div class="txt-contatos">
+                <h2>Contatos</h2>
+                <h3>{{ contato.telefone }}</h3>
+                <p>{{ contato.descricao }}</p>
+                          
+            </div><!--texto sobre-->
+        </div>
+    </div><!--interface sobre-->
+</section><!--Sessão Sobre-->
+{% endblock %}

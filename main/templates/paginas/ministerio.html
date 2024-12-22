@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Ministerios{% endblock %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="ministerio">
+    <div class="interface">
+        <div class="flex">
+
+            <div class="img-ministerio">
+                <img src="{{ ministerio.foto.url }}" alt="{{ ministerio.nome }}" height="300">
+            </div><!--imagem sobre-->
+
+            <div class="txt-ministerio">
+                <h2>{{ ministerio.nome }}</h2>
+                <p>{{ ministerio.descricao }}</p>
+                <div class="btn-social">
+                    {% for membro in ministerio.membros.all %}
+                        <p>{{ membro.username }}</p>  <!-- Exibe os nomes de usuário dos membros -->
+                    {% endfor %}
+                </div>          
+            </div><!--texto sobre-->
+        </div>
+    </div><!--interface sobre-->
+</section><!--Sessão Sobre-->
+{% endblock %}

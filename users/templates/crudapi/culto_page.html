@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Cultos</title>
+    <link rel="stylesheet" href="{% static '/css/crudapi/styles.css' %}">
+</head>
+<body>
+
+    <h1>Lista de Cultos</h1>
+    
+    <div id="cultos-list">
+        {% if cultos %}
+            <ul>
+                {% for culto in cultos %}
+                    <li>
+                        <strong>{{ culto.tipo }}</strong><br>
+                        Descrição: {{ culto.descricao }}<br>
+                        Data: {{ culto.data }}<br>
+                        Horário: {{ culto.horario }}<br>
+                        Dia da Semana: {{ culto.dia_da_semana }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não há cultos para exibir.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

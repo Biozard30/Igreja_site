@@ -1,0 +1,32 @@
+<!-- ministerio.html -->
+{% extends 'pag/base-users.html' %}
+
+{% block title %}Ministério{% endblock %}
+
+{% block content %}
+<h2>Ministério</h2>
+<p>Aqui você pode ver informações sobre os ministérios da igreja.</p>
+
+<!-- Formulário para líderes, pastores e administradores -->
+{% if request.user.role in 'lider pastor admin' %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Adicionar</button>
+</form>
+{% endif %}
+
+<!-- Lista de ministérios -->
+<hr>
+{% for ministerio in ministerios %}
+    <div class="ministerio-item">
+        <h3>{{ ministerio.title }}</h3>
+        <p><strong>Autor:</strong> {{ ministerio.author.username }}</p>
+        <p><strong>Publicado em:</strong> {{ ministerio.created_at|date:"d/m/Y H:i" }}</p>
+        <p>{{ ministerio.content }}</p>
+    </div>
+    <hr>
+{% empty %}
+    <p>Não há informações recentes no momento.</p>
+{% endfor %}
+{% endblock %}

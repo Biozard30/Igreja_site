@@ -1,0 +1,50 @@
+<!-- feed.html -->
+{% extends 'pag/base-users.html' %}
+
+{% block title %}Feed{% endblock %}
+
+{% block content %}
+<h2>Feed</h2>
+<p>Veja o que está acontecendo na comunidade.</p>
+
+<!-- Formulário para enviar notícias -->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Postar</button>
+</form>
+
+<!-- Lista de notícias -->
+<hr>
+{% for news in page_obj %}
+    <div class="news-item">
+        <h3>{{ news.title }}</h3>
+        <p><strong>Autor:</strong> {{ news.author.username }}</p>
+        <p><strong>Publicado em:</strong> {{ news.created_at|date:"d/m/Y H:i" }}</p>
+        {% if news.image %}
+            <img src="{{ news.image.url }}" alt="{{ news.title }}" style="max-width: 100%; height: auto; max-height: 300px;">
+        {% endif %}
+        <p>{{ news.content }}</p>
+    </div>
+    <hr>
+{% empty %}
+    <p>Não há notícias no momento.</p>
+{% endfor %}
+
+<!-- Navegação de paginação -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Primeira</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% endif %}
+
+        <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Próxima</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

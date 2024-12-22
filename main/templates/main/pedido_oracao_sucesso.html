@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido de Oração Enviado</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Obrigado por enviar seu pedido de oração!</h2>
+        <p>Nosso time estará orando por você.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Fazer outro pedido</a>
+    </div>
+</body>
+</html>

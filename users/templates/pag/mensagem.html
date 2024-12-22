@@ -1,0 +1,91 @@
+{% extends 'pag/base-users.html' %}
+
+{% block title %}Mensagens{% endblock %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/crudapi/mensagens.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <h2>Mensagens</h2>
+
+    <!-- Barra de pesquisa com placeholder -->
+    <div class="user-select">
+        <label for="user-search">Pesquise um usuário:</label>
+        <input type="text" id="user-search" placeholder="Pesquise um usuário" onkeyup="searchUsers()" />
+
+        <!-- Lista de todos os usuários cadastrados (exceto o logado) -->
+        <div id="user-list">
+            {% for user in all_users %}
+                <div class="user-item" onclick="selectUser({{ user.id }})">
+                    <p>{{ user.username }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Lista de usuários com quem o logado já trocou mensagens -->
+    <h3>Usuários com quem você já conversou:</h3>
+    <div class="user-conversations">
+        {% for user in users_with_messages %}
+            <div class="user-item" onclick="selectUser({{ user.id }})">
+                <p>{{ user.username }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Exibindo as mensagens trocadas com o usuário selecionado -->
+    <div class="chat-box">
+        {% if selected_user %}
+            <h3>Conversando com {{ selected_user.username }}</h3>
+            {% for mensagem in mensagens %}
+                <div class="{% if mensagem.sender == request.user %}sent{% else %}received{% endif %}">
+                    <p><strong>{{ mensagem.sender.username }}</strong>: {{ mensagem.content }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Selecione um usuário para ver as mensagens.</p>
+        {% endif %}
+    </div>
+
+    <!-- Formulário para enviar nova mensagem -->
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="receiver" value="{{ selected_user.id }}">
+        <button type="submit">Enviar</button>
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/pag.js' %}"></script>
+
+<script>
+    // Função para filtrar os usuários enquanto o usuário digita
+    function searchUsers() {
+        let input = document.getElementById("user-search");
+        let filter = input.value.toLowerCase();
+        let users = document.getElementsByClassName("user-item");
+        
+        for (let i = 0; i < users.length; i++) {
+            let username = users[i].textContent || users[i].innerText;
+            if (username.toLowerCase().indexOf(filter) > -1) {
+                users[i].style.display = "";
+            } else {
+                users[i].style.display = "none";
+            }
+        }
+    }
+
+    // Função para selecionar o usuário e carregar a conversa
+    function selectUser(userId) {
+        window.location.href = "/users/mensagem/?user_id=" + userId;
+    }
+</script>
+
+{% endblock %}

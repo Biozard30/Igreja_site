@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Personalizada da API</title>
+    <link rel="stylesheet" href="{% static '/css/crudapi/styles.css' %}"> <!-- Você pode adicionar CSS aqui -->
+</head>
+<body>
+
+    <h1>Lista de Igrejas</h1>
+    
+    <div id="igrejas-list">
+        {% if igrejas %}
+            <ul>
+                {% for igreja in igrejas %}
+                    <li>
+                        <strong>{{ igreja.nome }}</strong><br>
+                        Rua: {{ igreja.rua }}, {{ igreja.numero }}<br>
+                        Bairro: {{ igreja.bairro }}<br>
+                        Cidade: {{ igreja.cidade }}<br>
+                        Estado: {{ igreja.estado }}<br>
+                        País: {{ igreja.pais }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não há igrejas para exibir.</p>
+        {% endif %}
+    </div>
+
+    <!-- Aqui você pode incluir scripts JavaScript para consumir a API dinamicamente, se preferir -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Exemplo de consumo da API via JavaScript com axios (assumindo que você queira uma requisição mais dinâmica)
+        axios.get('http://127.0.0.1:8000/api/igrejas/')
+            .then(function(response) {
+                console.log(response.data);
+                let igrejasList = document.getElementById('igrejas-list');
+                let htmlContent = "<ul>";
+                response.data.forEach(function(igreja) {
+                    htmlContent += `
+                        <li>
+                            <strong>${igreja.nome}</strong><br>
+                            Rua: ${igreja.rua}, ${igreja.numero}<br>
+                            Bairro: ${igreja.bairro}<br>
+                            Cidade: ${igreja.cidade}<br>
+                            Estado: ${igreja.estado}<br>
+                            País: ${igreja.pais}
+                        </li>`;
+                });
+                htmlContent += "</ul>";
+                igrejasList.innerHTML = htmlContent;
+            })
+            .catch(function(error) {
+                console.error("Erro ao buscar as igrejas:", error);
+            });
+    </script>
+
+</body>
+</html>
